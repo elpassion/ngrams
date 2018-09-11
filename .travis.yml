@@ -1,3 +1,9 @@
 language: ruby
 rvm: 2.5
+jobs:
+  include:
+    - stage: "Spec"
+      script: "bundle exec rspec"
+    - stage: "Benchmark"
+      script: "bundle exec ruby benchmarks/main.rb"
 
