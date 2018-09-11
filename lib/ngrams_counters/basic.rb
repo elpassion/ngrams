@@ -12,7 +12,7 @@ module NGramsCounters
       key = ngram.join('-')
       result = occurances[key]
       if result
-        occurances[key].count += result.count + 1
+        result.count = result.count + 1
       else
         occurances[key] = Result.new(ngram, 1)
       end
