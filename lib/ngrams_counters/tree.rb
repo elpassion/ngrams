@@ -10,8 +10,8 @@ module NGramsCounters
       @occurances = Hash.new(0)
     end
 
-    def index(tokens)
-      root.index(tokens)
+    def index(ngram)
+      root.index(ngram)
     end
 
     def ngrams

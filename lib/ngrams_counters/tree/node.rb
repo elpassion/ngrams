@@ -13,11 +13,11 @@ module NGramsCounters
         @children = {}
       end
 
-      def index(tokens)
-        if tokens.empty?
+      def index(ngram)
+        if ngram.empty?
           return tree.increment_occurance(self)
         end
-        node_token, *rest_tokens = tokens
+        node_token, *rest_tokens = ngram
 
         node = find_children(node_token) || build_children(node_token)
         node.index(rest_tokens)
