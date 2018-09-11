@@ -16,9 +16,9 @@ class Tree
   end
 
   def ngrams
-    @occurances.map do |node, value|
-      [node.ngram.join(' '), value]
-    end
+    @occurances
+      .sort_by { |_node, value| -value }
+      .map { |node, value| [node.ngram.join(' '), value] }
   end
 
   def increment_occurance(node)

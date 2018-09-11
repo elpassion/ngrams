@@ -16,4 +16,8 @@ RSpec.describe NGramsCounter do
   it_behaves_like :ngram_counter, n: 2, size: 1,
     text: 'ala ma kot kot ma ala ma',
     ngrams: [['ala ma', 2]]
+
+  it_behaves_like :ngram_counter, n: 2, size: 2,
+    text: 'ala ma kot kot ma ala ma kot i ma kot',
+    ngrams: [['ma kot', 3], ['ala ma', 2]]
 end
