@@ -1,23 +1,32 @@
-require 'tokenizers/basic'
-require 'ngrams/basic'
-require 'ngrams_counters/tree'
+require_relative './tokenizers/basic'
+require_relative './ngrams/basic'
+require_relative './ngrams_counters/tree'
 
 class NGramsCounter
   attr_reader :tokens
 
-  def initialize(text,
-                 text_tokenizer: Tokenizers::Basic,
-                 ngrams: NGrams::Basic,
-                 ngrams_counter: NGramsCounters::Tree)
-    @tokens = text_tokenizer.new.tokenize(text)
-    @ngrams = ngrams.new(@tokens)
+  def self.build(type)
+    case type
+    when :tree
+      new(text_tokenizer: Tokenizers::Basic,
+          ngrams: NGrams::Basic,
+          ngrams_counter: NGramsCounters::Tree)
+    else
+      raise "unknown type #{type}"
+    end
+  end
+
+  def initialize(text_tokenizer:, ngrams:, ngrams_counter:)
+    @text_tokenizer = text_tokenizer
+    @ngrams = ngrams
     @ngrams_counter = ngrams_counter
   end
 
-  def most_frequent(n: 3, count: 10)
+  def most_frequent(text, n: 3, count: 10)
+    @tokens = tokenize(text)
     counter = ngrams_counter.new
 
-    ngrams.with_each_ngram(n) do |ngram|
+    ngrams.new.with_each_ngram(tokens, n) do |ngram|
       counter.index(ngram)
     end
 
@@ -26,5 +35,9 @@ class NGramsCounter
 
   private
 
-  attr_reader :ngrams, :ngrams_counter
+  def tokenize(text)
+    text_tokenizer.new.tokenize(text)
+  end
+
+  attr_reader :text_tokenizer, :ngrams, :ngrams_counter
 end

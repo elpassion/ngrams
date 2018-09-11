@@ -1,4 +1,4 @@
-require 'ngrams_counters/tree/node'
+require_relative './node'
 
 module NGramsCounters
   class Tree

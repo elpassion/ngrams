@@ -2,11 +2,11 @@ require 'ngrams_counter'
 
 RSpec.describe NGramsCounter do
   RSpec.shared_examples :ngram_counter do |text:, ngrams:, n: 2, size: 1|
-    subject(:counter) { described_class.new(text) }
+    subject(:counter) { described_class.build(:tree) }
 
     describe '#most_frequent' do
       it 'returns valid results' do
-        result = counter.most_frequent(n: n, count: size)
+        result = counter.most_frequent(text, n: n, count: size)
         expect(result).to eq(ngrams)
       end
     end
