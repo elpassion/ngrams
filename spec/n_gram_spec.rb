@@ -1,16 +1,19 @@
 require 'ngrams_counter'
 
 RSpec.describe NGramsCounter do
-  subject(:counter) { described_class.new(text, max_length: 2) }
+  RSpec.shared_examples :ngram_counter do |text:, ngrams:, n: 2, size: 1|
+    subject(:counter) { described_class.new(text, max_length: n) }
+    let(:text) { text }
 
-  let(:text) {
-    'ala ma kot kot ma ala ma'
-  }
-
-  describe '#most_frequent' do
-    it 'returns valid results' do
-      result = counter.most_frequent(n: 2, count: 1)
-      expect(result).to eq([['ala ma', 2]])
+    describe '#most_frequent' do
+      it 'returns valid results' do
+        result = counter.most_frequent(n: n, count: size)
+        expect(result).to eq(ngrams)
+      end
     end
   end
+
+  it_behaves_like :ngram_counter, n: 2, size: 1,
+    text: 'ala ma kot kot ma ala ma',
+    ngrams: [['ala ma', 2]]
 end
