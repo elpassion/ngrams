@@ -1,6 +1,6 @@
 require 'ngrams_counter'
 
-RSpec.describe Tokenizers::Basic do
+RSpec.describe Tokenizers::Whitespace do
   let(:text) { "ala ma kot\nkot ma ala ma" }
 
   describe '#tokenize' do

@@ -1,4 +1,4 @@
-require_relative './tokenizers/basic'
+require_relative './tokenizers/whitespace'
 require_relative './ngrams/basic'
 require_relative './ngrams_counters/basic'
 require_relative './ngrams_counters/tree'
@@ -10,11 +10,11 @@ class NGramsCounter
   def self.build(type)
     case type
     when :basic
-      new(text_tokenizer: Tokenizers::Basic,
+      new(text_tokenizer: Tokenizers::Whitespace,
           ngrams: NGrams::Basic,
           ngrams_counter: NGramsCounters::Basic)
     when :tree
-      new(text_tokenizer: Tokenizers::Basic,
+      new(text_tokenizer: Tokenizers::Whitespace,
           ngrams: NGrams::Basic,
           ngrams_counter: NGramsCounters::Tree)
     else

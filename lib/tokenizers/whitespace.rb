@@ -1,5 +1,5 @@
 module Tokenizers
-  class Basic
+  class Whitespace
     def tokenize(text)
       text.split
     end
