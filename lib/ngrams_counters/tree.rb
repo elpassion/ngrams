@@ -16,8 +16,8 @@ module NGramsCounters
 
     def ngrams
       occurances
-        .sort_by { |_node, value| -value }
-        .map { |node, value| [node.ngram.join(' '), value] }
+        .sort_by { |_, count| count }.reverse!
+        .map { |node, count| [node.ngram.join(' '), count] }
     end
 
     def increment_occurance(node)

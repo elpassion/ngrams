@@ -2,18 +2,26 @@ module NGramsCounters
   class Basic
     attr_reader :occurances
 
+    Result = Struct.new(:ngram, :count)
+
     def initialize
-      @occurances = Hash.new(0)
+      @occurances = {}
     end
 
     def index(ngram)
-      occurances[ngram.join(' ')] += 1
+      key = ngram.join('-')
+      result = occurances[key]
+      if result
+        occurances[key].count += result.count + 1
+      else
+        occurances[key] = Result.new(ngram, 1)
+      end
     end
 
     def ngrams
-      occurances
-        .sort_by { |_node, value| -value }
-        .map { |node, value| [node, value] }
+      occurances.values
+        .sort_by { |result| result.count }.reverse!
+        .map { |result| [result.ngram.join(' '), result.count] }
     end
   end
 end
