@@ -3,12 +3,10 @@ require 'tree/node'
 class Tree
   attr_reader :root
   attr_reader :occurances
-  attr_reader :leafs
 
   def initialize
     @root = Node.new(tree: self)
     @occurances = Hash.new(0)
-    @leafs = []
   end
 
   def index(tokens)

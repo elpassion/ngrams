@@ -1,4 +1,4 @@
-require 'tree'
+require 'tree/tree'
 require 'tokenizers/basic'
 
 class NGramsCounter
